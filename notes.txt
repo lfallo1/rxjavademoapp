@@ -1,0 +1,18 @@
+- A stream is a sequence of ongoing events ordered in time. It can emit three different things: a value (of some type), an error, or a "completed" signal.
+- The "listening" to the stream is called subscribing. The functions we are defining are observers. The stream is the subject (or "observable") being observed.
+
+Observable is a push-based, composable iterator.
+    For a given Observable<T>, it pushes items (called emissions) of type T through a series of operators until it finally arrives at a final Observer, which consumes the items
+    Emissions are handed from the source (Observable) up to the Observer sequentially.
+    Pass three types of events
+        1) onNext- passes each item one at a time from the source Observable all the way to the Observer.
+        2) onComplete- communicates a completion event all the way to the Observer, indicating that no more onNext() calls will occu
+        3) onError- communicates an error up the chain to the Observer, where the Observer typically defines how to handle it. Unless a retry() operator is used to intercept the error, the Observable chain typically terminates, and no more emissions will occur.
+
+-> If initializing your emission has a likelihood of throwing an error, you should use Observable.fromCallable() instead of Observable.just().
+
+Flowable: onSubscribe oNext* (onError | onComplete)?
+Observable: onSubscribe oNext* (onError | onComplete)?
+Single: onSubscribe (onSuccess | onError)?
+Completable: onSubscribe (onError | onComplete)?
+Maybe: onSubscribe (onSuccess | onError | onComplete)?
